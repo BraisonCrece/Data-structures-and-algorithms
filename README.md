@@ -40,5 +40,5 @@ This project is under the MIT license.
 
 ## 📧 Contact 📧
 
-If you have any questions or comments, feel free to [contact me](braisoncrece@gmail.com).
+If you have any questions or comments, feel free to [contact me](mailto:braisoncrece@gmail.com).
 
