@@ -7,19 +7,19 @@ class LinkedList
     node = Node.new(value)
     node.value = value
     if !head
-      self.head = node
-      self.tail = node
+      @head = node
+      @tail = node
     else
-      node.previous_node = self.tail
-      self.tail.next_node = node
-      self.tail = node
+      node.previous_node = @tail
+      @tail.next_node = node
+      @tail = node
     end
     "success"
   end
 
   def get(index)
     begin
-      return self.head.value if index === 0
+      return @head.value if index === 0
       node = select_node(index)
       raise "INDEX #{index} OUT OF BOUNDS" if !node
       node.value
@@ -31,9 +31,9 @@ class LinkedList
   def replace(index, new_value)
     # replacing the head
     if index === 0
-      new_node = Node.new(new_value, next_node: self.head.next_node)
-      self.head.next_node.previous_node = new_node
-      self.head = new_node
+      new_node = Node.new(new_value, next_node: @head.next_node)
+      @head.next_node.previous_node = new_node
+      @head = new_node
       return
     end
 
@@ -42,9 +42,9 @@ class LinkedList
       raise "INDEX #{index} OUT OF BOUNDS" if !node_to_replace
       # replacing the tail
       if !node_to_replace.next_node
-        new_node = Node.new(new_value, previous_node: self.tail.previous_node)
-        self.tail.previous_node.next_node = new_node
-        self.tail = new_node
+        new_node = Node.new(new_value, previous_node: @tail.previous_node)
+        @tail.previous_node.next_node = new_node
+        @tail = new_node
         return
       end
 
@@ -62,8 +62,8 @@ class LinkedList
     begin
       # if the node is the head
       if index === 0
-        self.head.next_node.previous_node = nil
-        self.head = self.head.next_node
+        @head.next_node.previous_node = nil
+        @head = @head.next_node
         return
       end
 
@@ -72,7 +72,7 @@ class LinkedList
       # if the node is the tail
       if !node.next_node
         node.previous_node.next_node = nil
-        self.tail = node.previous_node
+        @tail = node.previous_node
         return
       end
 
@@ -86,7 +86,7 @@ class LinkedList
   end
 
   def print_list
-    node = self.head
+    node = @head
     list = []
     while node
       list << node.value
@@ -95,10 +95,21 @@ class LinkedList
     list
   end
 
+  def size
+    return 0 if @head === nil
+    size = 1
+    node = @head
+    while node.next_node
+      size += 1
+      node = node.next_node
+    end
+    size
+  end
+
   private
 
   def select_node(index)
-    node = self.head
+    node = @head
     (1..index).each do
       node = node&.next_node
     end
