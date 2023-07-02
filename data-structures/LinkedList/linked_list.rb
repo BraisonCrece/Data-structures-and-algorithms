@@ -29,30 +29,12 @@ class LinkedList
   end
 
   def replace(index, new_value)
-    # replacing the head
-    if index === 0
-      new_node = Node.new(new_value, next_node: @head.next_node)
-      @head.next_node.previous_node = new_node
-      @head = new_node
-      return
-    end
-
     begin
       node_to_replace = select_node(index)
       raise "INDEX #{index} OUT OF BOUNDS" if !node_to_replace
-      # replacing the tail
-      if !node_to_replace.next_node
-        new_node = Node.new(new_value, previous_node: @tail.previous_node)
-        @tail.previous_node.next_node = new_node
-        @tail = new_node
-        return
-      end
-
-      # replace an inner node
-      new_node = Node.new(new_value, previous_node: node_to_replace.previous_node, next_node: node_to_replace.next_node)
-      node_to_replace.previous_node.next_node = new_node
-      node_to_replace.next_node.previous_node = new_node
-      return
+      # Replace the value directly
+      node_to_replace.value = new_value
+      new_value # This should be the replaced node's value
     rescue => exception
       p "#{exception.message}"
     end
@@ -85,7 +67,7 @@ class LinkedList
     end
   end
 
-  def print_list
+  def inspect
     node = @head
     list = []
     while node
