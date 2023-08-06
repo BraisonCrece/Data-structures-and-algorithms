@@ -19,6 +19,44 @@ RSpec.describe BinaryTreeTools do
     node3.right = node7
   end
 
+  describe ".breath_first_search" do
+    context "when the tree is empty" do
+      it "returns false" do
+        expect(described_class.breath_first_search(head: nil, needle: 1)).to eq(false)
+      end
+    end
+
+    context "when the tree has one node" do
+      let(:single_node) { Node.new(value: 1) }
+
+      context "and that node is the needle" do
+        it "returns true" do
+          expect(described_class.breath_first_search(head: single_node, needle: 1)).to eq(true)
+        end
+      end
+
+      context "and that node is not the needle" do
+        it "returns false" do
+          expect(described_class.breath_first_search(head: single_node, needle: 2)).to eq(false)
+        end
+      end
+    end
+
+    context "when the tree has multiple nodes" do
+      context "and the needle is in the tree" do
+        it "returns true" do
+          expect(described_class.breath_first_search(head: node1, needle: 2)).to eq(true)
+        end
+      end
+
+      context "and the needle is not in the tree" do
+        it "returns false" do
+          expect(described_class.breath_first_search(head: node1, needle: 8)).to eq(false)
+        end
+      end
+    end
+  end
+
   describe ".pre_order_search" do
     context "when the tree is empty" do
       it "returns an empty array" do
